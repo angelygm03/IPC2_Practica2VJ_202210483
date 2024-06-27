@@ -11,7 +11,7 @@ class Manager():
     def getLibro(self):
         json = []
         for libro in self.libros:
-            usuario = {
+            libro = {
                 'id': libro.id,
                 'titulo': libro.titulo,
                 'autor': libro.autor,

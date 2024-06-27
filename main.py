@@ -1,6 +1,6 @@
-from manage import Manager
 from flask import Flask, request, jsonify
 from xml.etree import ElementTree as ET
+from manage import Manager
 
 app = Flask(__name__)
 manager = Manager()
@@ -24,11 +24,13 @@ def cargarLibros():
         copias = int(elemento.find('copias').text)
 
         manager.addLibro(id, titulo, autor, idioma, categoria, editorial, copias)
-
-        print(f'Libro agregado: id={id}, titulo={titulo}, autor={autor}, idioma={idioma}, categoria={categoria}, editorial={editorial}, copias={copias}')
-    
+            
     return jsonify({"message": "Archivo XML cargado correctamente"}), 200
 
+@app.route('/verLibros', methods=['GET'])
+def verLibros():
+    libros = manager.getLibro()
+    return jsonify(libros), 200
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
